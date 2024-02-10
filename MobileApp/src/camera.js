@@ -4,6 +4,8 @@ import { Camera } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
+import HomePage from './homeScreen';
+import Cat from './cat';
 
 export default function PhoneCamera({ navigation }) {
   const [cameraPermission, setCameraPermission] = useState(null);
@@ -21,7 +23,6 @@ export default function PhoneCamera({ navigation }) {
     setCameraPermission(cameraPermission.status === 'granted');
 
     const imagePermission = await ImagePicker.getMediaLibraryPermissionsAsync();
-    console.log(imagePermission.status);
 
     setGalleryPermission(imagePermission.status === 'granted');
 
@@ -63,12 +64,22 @@ export default function PhoneCamera({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
-        <Button title="Discard" onPress={() => setPhoto(undefined)} />
+        
+        <View style={styles.afterPhotoButtons}>
+          <View style={{flex:1}}></View>
+          <Button title="Discard" onPress={() => setPhoto(undefined)} style={styles.discard}/>
+          <View style={{flex:1}}></View>
+          <Button title="Use" onPress={() => navigation.navigate('Detect Tumors', component={HomePage, photo:photo})} style={styles.discard}/>
+          <View style={{flex:1}}></View>
+        </View>
+        
       </SafeAreaView>
     );
   }
   return (
+    
     <Camera style={styles.container} ref={cameraRef}>
+      <Button title="Go Back" onPress={() => navigation.navigate('Detect Tumors', component={HomePage})} />
       <View style={styles.topBox}></View>
       <View style={styles.buttonContainer}>
         <Button title="Take Pic" onPress={takePic} />
@@ -113,5 +124,14 @@ const styles = StyleSheet.create({
   },
   bottomBox: {
     flex: 1
+  },
+  afterPhotoButtons: {
+    flexDirection: "row",
+  },
+  discard: {
+    flex: 1,
+  },
+  use: {
+    flex: 1,
   }
 });
