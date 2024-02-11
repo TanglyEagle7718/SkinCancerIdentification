@@ -21,6 +21,10 @@ Precision - 0.79
 Recall - 0.96
 F1 Score - 0.87
 
+How confidence is evaluated:
+We can use the score of an image for by subtracting the score from 0.5 and multiplying by 2. 
+Ex: score = 0.46 (Benign) => 0.5 - 0.46 = 0.04 * 2 = 0.08 => 8% confidence
+
 
 Application Plugins:
 Expo CLI
