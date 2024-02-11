@@ -7,6 +7,14 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "proxy": "0.0.0.0",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you choose an existing image for testing."
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

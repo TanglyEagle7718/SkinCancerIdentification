@@ -17,7 +17,6 @@ model = models.resnet50(pretrained=True)  # Example: Loading a pre-trained ResNe
 
 #add a new final layer
 nr_filters = model.fc.in_features  #number of input features of last layer
-print(nr_filters)
 
 classifier_head = nn.Sequential(
 nn.Linear(nr_filters, 512),
@@ -49,6 +48,6 @@ def inference():
 
     # Interpret the output
     if output < 0.5:
-        return "Prediction: Benign"
+        return "Benign", output.item()
     else:
-        return "Prediction: Malignant"
+        return "Malignant", output.item()

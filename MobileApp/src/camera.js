@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
-import { Camera } from 'expo-camera';
+import { Camera, CameraType } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
 import { Feather } from "@expo/vector-icons";
 
@@ -16,6 +16,16 @@ export default function PhoneCamera({ navigation }) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
   const [photo, setPhoto] = useState();
+
+  const [type, setType] = useState(CameraType.back);
+  function toggleCameraType() {
+    console.log('here')
+    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+    console.log(type)
+  }
+
+
+
 
   //getting camera permissions
   const permisionFunction = async () => {
@@ -77,7 +87,7 @@ export default function PhoneCamera({ navigation }) {
 								
 							}); 
 					})
-          navigation.navigate('Test', component={Test});
+          navigation.navigate('Test', component={Test, photo:photo.base64});
 			}
 			catch (error) { 
 				console.error(error); 
@@ -100,6 +110,7 @@ export default function PhoneCamera({ navigation }) {
     );
   }
   return (
+    /*
     <Camera style={photoStyles.container} ref={cameraRef}>
       <Button title="Go Back" onPress={() => navigation.navigate('Detect Tumors', component={HomePage, photo:photo})} />
       <View style={photoStyles.topBox}></View>
@@ -111,9 +122,10 @@ export default function PhoneCamera({ navigation }) {
       </View>
       <View style={photoStyles.bottomBox}></View>
     </Camera>
+    */
     
-    /*
-    <Camera style={cameraStyles.container} ref={cameraRef}>
+    
+    <Camera style={cameraStyles.container} ref={cameraRef} type={type}>
       <View style={{flex:6}}></View>
       <View style={{flex:1, flexDirection:"row"}}>
 
@@ -121,29 +133,24 @@ export default function PhoneCamera({ navigation }) {
           <Button title="Go Back" onPress={() => navigation.navigate('Detect Tumors', component={HomePage, photo:photo})} style={cameraStyles.backButton}/>
         </View>
 
-        <View style={{flex:1}}></View>
-
-        <TouchableOpacity style={{flex:1}}>
-          <Image source={require('../assets/takePicIcon.png')} onPress={takePic} style={{width:100, height:100}}/>
+        <TouchableOpacity style={cameraStyles.backButton} onPress={takePic}>
+          <Image source={require('../assets/takePicIcon.png')} style={{width:100, height:100}}/>
         </TouchableOpacity>
         
-        <View style={{flex:1}}></View>
-
-        <View>
-        <TouchableOpacity>
-          <Feather
-          style={{paddingRight: 10}}
-          name="refresh-cw"
-          size={50}
-          color="black" />
-        </TouchableOpacity>
+        <View style={cameraStyles.backButton}>
+          <TouchableOpacity onPress={toggleCameraType}>
+            <Feather
+            name="refresh-cw"
+            size={50}
+            color="black" />
+          </TouchableOpacity>
         </View>
 
       </View>
 
       <View style={{flex:1}}></View>
     </Camera>
-    */
+    
   );
 }
 
@@ -192,7 +199,6 @@ const photoStyles = StyleSheet.create({
   },
   button: {
     flex: 0.1,
-    padding: 10,
     alignSelf: 'flex-end',
     alignItems: 'center',
   },

@@ -22,8 +22,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Detect Tumors" component={HomePage} />
-        <Stack.Screen name="PhoneCamera" component={PhoneCamera} />
-        <Stack.Screen name="Test" component={Test}/>
+        <Stack.Screen name="PhoneCamera" component={PhoneCamera} options={{ title: "Take Picture of Concerned Area",  headerBackVisible:false, headerShown:false} }/>
+        <Stack.Screen name="Test" component={Test} options={{ title: "Analysis Results",  headerBackVisible:false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

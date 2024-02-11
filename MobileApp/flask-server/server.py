@@ -8,6 +8,7 @@ import base64
 import convertBase64toImage
 
 import model
+import model2
 
 from flask_cors import CORS
 
@@ -43,8 +44,10 @@ def base64():
 
 @app.route("/output", methods=["GET"])
 def output():
-    print(model.inference())
-    return {"result": model.inference()}
+    prediction, prob = model2.inference()
+    if prob == 0.5:
+        prediction = "Barely Malignant"
+    return {"pred": prediction, "probability": prob}
 
 
 if __name__ == "__main__":
