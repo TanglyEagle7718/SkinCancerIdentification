@@ -15,6 +15,7 @@ import { Feather } from "@expo/vector-icons";
 
 import Cat from "./cat"
 import PhoneCamera from "./camera"
+import Test from "./test";
 
 const HomePage = ({route, navigation, photo = null}) => {
 	
@@ -22,10 +23,9 @@ const HomePage = ({route, navigation, photo = null}) => {
 	
 	
 
-	if (allInfo === undefined) {
+	if (allInfo === undefined || Object.values(allInfo)[1] === undefined) {
 		console.log(allInfo)
 		
-	
 		return (
 			<View>
 				<Button title="camera" onPress={() => navigation.navigate('PhoneCamera')} />
@@ -36,39 +36,13 @@ const HomePage = ({route, navigation, photo = null}) => {
 		const base64Icon = 'data:image/png;base64,'+photoInfo;
 
 
-		const requestOptions = { 
-			method: 'POST', 
-			headers: { 'Content-Type': 'application/json' }, 
-			body: JSON.stringify({ postName: photoInfo }) 
-		}; 
-	
-		const postExample = async () => { 
-			try { 
-				await fetch( 
-					'http://143.215.101.170:5000/base64', requestOptions) 
-					.then(response => { 
-						response.json() 
-							.then(data => { 
-								Alert.alert("Post created at : ",  
-								data.createdAt); 
-							}); 
-					}) 
-			} 
-			catch (error) { 
-				console.error(error); 
-			} 
-		} 
-
 		//<Button onPress={submitPhoto1} title="Send data">
 		return (
 			<View>
 				<Button style={{flex:1}} title="camera" onPress={() => navigation.navigate('PhoneCamera')} />
 				<Image style={styles.imageFormat} source={{uri: base64Icon}}/>
-				
-				<View style={styles.btn}> 
-            		<Button mode="contained" onPress={postExample} title="hi"> 
-					</Button> 
-       			 </View> 
+				<Button title="asjdf;kla" onPress={useEffect} />
+				<Button title="asjdf;kla" onPress={() => navigation.navigate('Test')} />
 			</View>
 		);
 	}

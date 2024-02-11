@@ -5,6 +5,10 @@ import socket
 import json
 import base64
 
+import convertBase64toImage
+
+import model
+
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -13,7 +17,7 @@ CORS(app)
 @app.route("/members")
 def members():
     print("here")
-    return "image"
+    return {"members": ["Member1", "Member2", "Member3"]}
 
 metaData = None
 @app.route("/base64", methods=["GET", "POST", "OPTIONS"])
@@ -27,13 +31,20 @@ def base64():
     #base64Data = "b'" + base64Data + "'"
     with open("Output.txt", "w") as text_file:
         text_file.write(metaData.get('postName'))
+    
 
+    exec(open("convertBase64toImage.py").read())
 
 
     #with open("imageToSave.png", "wb") as fh:
     #    fh.write(base64.decodebytes(metaData.get('postName')))
     
     return metaData.get('postName')
+
+@app.route("/output", methods=["GET"])
+def output():
+    print(model.inference())
+    return {"result": model.inference()}
 
 
 if __name__ == "__main__":

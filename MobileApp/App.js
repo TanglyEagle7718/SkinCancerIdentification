@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Cat from "./src/cat";
 import HomePage from "./src/homeScreen"
 import PhoneCamera from "./src/camera";
+import Test from "./src/test";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,8 +22,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Detect Tumors" component={HomePage} />
-        <Stack.Screen name="Cat" component={Cat}/>
         <Stack.Screen name="PhoneCamera" component={PhoneCamera} />
+        <Stack.Screen name="Test" component={Test}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
