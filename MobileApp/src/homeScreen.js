@@ -66,15 +66,15 @@ const HomePage = ({route, navigation, photo = null}) => {
 };
 
 	return (
-		<View>
+		<ScrollView style={{backgroundColor:"#ffc596"}}>
 			<View style={{alignContent:"center", justifyContent:"center"}}>
 				<Text style={{fontSize:50}}>Welcome!</Text>
 			</View>
-			<View style={{flexDirection:"row", alignContent: "center", justifyContent:"center"}}>
+			<View style={{flexDirection:"row", alignContent: "center", justifyContent:"space-around"}}>
 				<Button title="camera" onPress={() => navigation.navigate('PhoneCamera')} />
 				<Button title="select media" onPress={pickImage} />
 			</View>
-		</View>
+		</ScrollView>
 	);
 }
 
