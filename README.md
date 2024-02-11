@@ -3,6 +3,8 @@ CancelCancer allows you to detect early stage melanoma using a phone. With one i
 About the project/the problem it solves
 CancelCancer is an app that uses a convolutional neural network to determine if scans of peoples skin that are uploaded by users are likely to show skin cancer. One fifth of Americans are predicted to develop skin cancer in their lifetimes. Unlike other similar products, CancelCancer provides transparency about efficacy for individuals with darker complexions. 
 
+Our data was retrieved from: {source link}
+
 
 To run models for flask server, move these files to ./MobileApp/flask-server/
 Pre-trained weights:
