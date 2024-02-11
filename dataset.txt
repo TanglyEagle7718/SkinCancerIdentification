@@ -1,0 +1,2 @@
+Link to dataset used for training the models : https://drive.google.com/file/d/1f05U5Cp7sptt1-EmmuRfWGXRACK5hWun/view?usp=sharing
+It has two main folders: data and test_img. Use the content within data for training and validation, and test_img folder for testing your model's performance
