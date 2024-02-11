@@ -58,6 +58,9 @@ import torch.nn as nn
 # print(inference())
 
 #Model 2
+
+
+
 def inference():
     model = models.regnet_y_8gf(weights = 'DEFAULT')
     model.fc = nn.Linear(model.fc.in_features, 1)
@@ -68,7 +71,7 @@ def inference():
     
     imgSize = 224
     # Load the image from a file
-    image = Image.open('images.jpg')
+    image = Image.open('image.png')
     
     transformer = transforms.Compose([
         transforms.Resize(size = (imgSize, imgSize), antialias = True),
@@ -90,7 +93,7 @@ def inference():
     
     threshold = 0.5
     predicted = 'Malignant' if output > threshold else 'Benign'
-    print(f'The predicted class is {predicted} with a confidence of {output}')
+    #print(f'The predicted class is {predicted} with a confidence of {output}')
     
     return predicted, output.item()
 pred, out = inference()

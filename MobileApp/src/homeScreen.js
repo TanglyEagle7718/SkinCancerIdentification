@@ -16,6 +16,7 @@ import { Feather } from "@expo/vector-icons";
 import Cat from "./cat"
 import PhoneCamera from "./camera"
 import Test from "./test";
+import SelectedImage from "./selectedImage";
 
 import * as ImagePicker from "expo-image-picker";
 
@@ -35,35 +36,12 @@ const HomePage = ({route, navigation, photo = null}) => {
 		});
 
 		if (!result.canceled) {
-		setImage(result.assets[0].uri);
+		setImage(result.assets[0].base64);
 		}
-
-		const requestOptions = { 
-			method: 'POST', 
-			headers: { 'Content-Type': 'application/json' }, 
-			body: JSON.stringify({ postName: result.assets[0].base64 }) 
-		}; 
-
-		const sendMetaData = async () => { 
-			try { 
-				await fetch( 
-					'http://143.215.101.170:5000/base64', requestOptions) 
-					.then(response => {
-						response.json()
-							.then(data => {
-								
-							}); 
-					})
-			}
-			catch (error) { 
-				console.error(error); 
-			} 
-		}
-		sendMetaData;
 
 
 		//console.log(result.assets[0].base64);
-		navigation.navigate('Test', component={Test, photo:result.assets[0].base64});
+		navigation.navigate('Show Selected Image',  component={SelectedImage, photo:result.assets[0].base64})
 	};
 
 	return (

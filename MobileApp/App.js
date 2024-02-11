@@ -12,6 +12,7 @@ import HomePage from "./src/homeScreen"
 import PhoneCamera from "./src/camera";
 import Test from "./src/test";
 import ShowImage from "./src/showImage";
+import SelectedImage from "./src/selectedImage";
 //import Maps from "./src/maps";
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ export default function App() {
         <Stack.Screen name="PhoneCamera" component={PhoneCamera} options={{ title: "Take Picture of Concerned Area",  headerBackVisible:false, headerShown:false} }/>
         <Stack.Screen name="Test" component={Test} options={{ title: "Analysis Results",  headerBackVisible:false,gestureEnabled: false  }}/>
         <Stack.Screen name="Show Image" component={ShowImage} />
+        <Stack.Screen name="Show Selected Image" component={SelectedImage}/>
 
       </Stack.Navigator>
     </NavigationContainer>

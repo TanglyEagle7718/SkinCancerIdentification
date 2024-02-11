@@ -44,7 +44,7 @@ def base64():
 
 @app.route("/output", methods=["GET"])
 def output():
-    prediction, prob = model2.inference()
+    prediction, prob = model.inference()
     if prob == 0.5:
         prediction = "Barely Malignant"
     return {"pred": prediction, "probability": prob}
