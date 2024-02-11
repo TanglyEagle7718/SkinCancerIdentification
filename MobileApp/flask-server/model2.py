@@ -89,7 +89,7 @@ def inference():
     print(output)
     
     threshold = 0.5
-    predicted = 'malignant' if output > threshold else 'benign'
+    predicted = 'Malignant' if output > threshold else 'Benign'
     print(f'The predicted class is {predicted} with a confidence of {output}')
     
     return predicted, output.item()

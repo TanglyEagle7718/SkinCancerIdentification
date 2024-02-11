@@ -13,6 +13,12 @@
         {
           "photosPermission": "The app accesses your photos to let you choose an existing image for testing."
         }
+      ],
+      [ 
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
       ]
     ],
     "splash": {

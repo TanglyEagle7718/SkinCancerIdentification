@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from "react";
-import {Alert, SafeAreaView, Text, View} from "react-native";
+import {Alert, SafeAreaView, Text, View, LogBox} from "react-native";
 
 import {Camera} from 'expo-camera';
 import { shareAsync } from "expo-sharing";
@@ -11,19 +11,26 @@ import Cat from "./src/cat";
 import HomePage from "./src/homeScreen"
 import PhoneCamera from "./src/camera";
 import Test from "./src/test";
+import ShowImage from "./src/showImage";
+//import Maps from "./src/maps";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  LogBox.ignoreAllLogs();
   //const device = useCameraDevice('back')
   //if (device == null) return <NoCameraErrorView />
+
+  //<Stack.Screen name="A Map" component={Maps}/>
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Detect Tumors" component={HomePage} />
+        <Stack.Screen name="CancelCancer" component={HomePage} />
         <Stack.Screen name="PhoneCamera" component={PhoneCamera} options={{ title: "Take Picture of Concerned Area",  headerBackVisible:false, headerShown:false} }/>
-        <Stack.Screen name="Test" component={Test} options={{ title: "Analysis Results",  headerBackVisible:false }}/>
+        <Stack.Screen name="Test" component={Test} options={{ title: "Analysis Results",  headerBackVisible:false,gestureEnabled: false  }}/>
+        <Stack.Screen name="Show Image" component={ShowImage} />
+
       </Stack.Navigator>
     </NavigationContainer>
   )

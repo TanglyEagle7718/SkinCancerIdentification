@@ -10,6 +10,7 @@ import HomePage from './homeScreen';
 import Test from './test';
 
 export default function PhoneCamera({ navigation }) {
+  
   const [cameraPermission, setCameraPermission] = useState(null);
   const [galleryPermission, setGalleryPermission] = useState(null);
 
@@ -50,49 +51,50 @@ export default function PhoneCamera({ navigation }) {
     permisionFunction();
   }, []);
   let takePic = async () => {
-    let options = {
-      quality: 1,
-      base64: true,
-      exif: false
+      
+      let options = {
+        quality: 1,
+        base64: true,
+        exif: false
+      };
+
+      let newPhoto = await cameraRef.current.takePictureAsync(options);
+      setPhoto(newPhoto);
     };
 
-    let newPhoto = await cameraRef.current.takePictureAsync(options);
-    setPhoto(newPhoto);
-  };
+    if (photo) {
+      let sharePic = () => {
+        shareAsync(photo.uri).then(() => {
+          setPhoto(undefined);
+        });
+      };
 
-  if (photo) {
-    let sharePic = () => {
-      shareAsync(photo.uri).then(() => {
-        setPhoto(undefined);
-      });
-    };
-
-    //const photoInfo = (Object.values(allInfo)[1])["base64"];
-	  //const base64Icon = 'data:image/png;base64,'+photoInfo;
+      //const photoInfo = (Object.values(allInfo)[1])["base64"];
+      //const base64Icon = 'data:image/png;base64,'+photoInfo;
 
 
-		const requestOptions = { 
-			method: 'POST', 
-			headers: { 'Content-Type': 'application/json' }, 
-			body: JSON.stringify({ postName: photo.base64 }) 
-		}; 
-	
-		const sendMetaData = async () => { 
-			try { 
-				await fetch( 
-					'http://143.215.101.170:5000/base64', requestOptions) 
-					.then(response => {
-						response.json()
-							.then(data => {
-								
-							}); 
-					})
-          navigation.navigate('Test', component={Test, photo:photo.base64});
-			}
-			catch (error) { 
-				console.error(error); 
-			} 
-		} 
+      const requestOptions = { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ postName: photo.base64 }) 
+      }; 
+    
+      const sendMetaData = async () => { 
+        try { 
+          await fetch( 
+            'http://143.215.101.170:5000/base64', requestOptions) 
+            .then(response => {
+              response.json()
+                .then(data => {
+                  
+                }); 
+            })
+            navigation.navigate('Test', component={Test, photo:photo.base64});
+        }
+        catch (error) { 
+          console.error(error); 
+        } 
+      } 
 
     return (
       <SafeAreaView style={photoStyles.container}>
@@ -130,7 +132,7 @@ export default function PhoneCamera({ navigation }) {
       <View style={{flex:1, flexDirection:"row"}}>
 
         <View style={cameraStyles.backButton}>
-          <Button title="Go Back" onPress={() => navigation.navigate('Detect Tumors', component={HomePage, photo:photo})} style={cameraStyles.backButton}/>
+          <Button title="Go Back" onPress={() => navigation.navigate('CancelCancer', component={HomePage, photo:photo})} style={cameraStyles.backButton}/>
         </View>
 
         <TouchableOpacity style={cameraStyles.backButton} onPress={takePic}>

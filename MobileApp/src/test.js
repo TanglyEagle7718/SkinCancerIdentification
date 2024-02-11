@@ -16,11 +16,13 @@ import { Feather } from "@expo/vector-icons";
 import Cat from "./cat"
 import PhoneCamera from "./camera"
 import HomePage from "./homeScreen";
-
+import ShowImage from "./showImage";
 
 
 const Test = ({route, navigation, photo = null}) => {
+    
     const [data, setData] = useState([{}])
+    const [color, setColor] = useState("green")
     const allInfo = route.params;
     useEffect(() => {
         fetch("http://143.215.101.170:5000/output").then(
@@ -47,21 +49,26 @@ const Test = ({route, navigation, photo = null}) => {
     }
 
     return(
-        <View>
-            <Text>Here is the image you submitted</Text>
-            <Image style={styles.imageFormat} source={{uri: base64Icon}}/>
-            <Text>We predict that this is a {data.pred} tumor</Text>
-            <Text>We are {Math.round(100*probability)}% confident</Text>
-            <Button title="Back to home" onPress={() => navigation.navigate('Detect Tumors', component={HomePage, photo:photo})} />
-        </View>
+        <ScrollView style={{backgroundColor:"#ffc596"}}>
+            <Button title="View image submitted" onPress={() => {navigation.navigate('Show Image', component={ShowImage, photo:photoInfo})}}/>
+
+            <Text style={{fontSize:20, padding: 10, textAlign: "center"}}>We predict that this is a 
+                {data.pred === "Benign" && <Text style={{color:"green", fontWeight: "bold"}}> {data.pred} </Text>}
+                {data.pred === "Malignant" && <Text style={{color:"red", fontWeight: "bold"}}> {data.pred} </Text>}
+             mole</Text>
+            <Text style={{fontSize:20, padding: 10, textAlign: "center"}}>We are {Math.round(100*probability)}% confident</Text>
+            <Button title="Back to home" onPress={() => navigation.navigate('CancelCancer', component={HomePage, photo:photo})} />
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
 	imageFormat: {
-		alignSelf: 'center',
-      height:'50%', 
-      width:'50%'
+	    alignSelf: 'center',
+        height:"100%", 
+        width:"100%",
+        resizeMode: "contain",
+
 	}
 });
 
