@@ -20,3 +20,11 @@ Accuracy - 92%
 Precision - 0.79
 Recall - 0.96
 F1 Score - 0.87
+
+
+Application Plugins:
+Expo CLI
+Expo Camera
+Expo Image Picker
+Expo Media Library
+
